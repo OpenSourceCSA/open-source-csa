@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <RootNamespace>Ezley.Commands</RootNamespace>
+        <LangVersion>9</LangVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Csa.Domain.Auth\Csa.Domain.Auth.csproj" />
+      <ProjectReference Include="..\Csa.Domain.Crm\Csa.Domain.Crm.csproj" />
+    </ItemGroup>
+
+</Project>

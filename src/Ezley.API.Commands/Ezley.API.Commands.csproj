@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <LangVersion>9</LangVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
+        <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.10" NoWarn="NU1605" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+        <PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="5.6.3" />
+        <PackageReference Include="System.Net.Http" Version="4.3.4" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Ezley.CQRS.Commands\Ezley.CQRS.Commands.csproj" />
+      <ProjectReference Include="..\Ezley.EventStore\Ezley.EventStore.csproj" />
+      <ProjectReference Include="..\Ezley.ProjectionStore\Ezley.ProjectionStore.csproj" />
+      <ProjectReference Include="..\Ezley.SnapshotStore\Ezley.SnapshotStore.csproj" />
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <LangVersion>9</LangVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Ezley.Domain\Ezley.Domain.csproj" />
+      <ProjectReference Include="..\Ezley.EncryptionKeyStore\Ezley.EncryptionKeyStore.csproj" />
+      <ProjectReference Include="..\Ezley.Events\Ezley.Events.csproj" />
+      <ProjectReference Include="..\Ezley.ProjectionStore\Ezley.ProjectionStore.csproj" />
+      <ProjectReference Include="..\Ezley.ValueObjects\Ezley.ValueObjects.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="Enums\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="Enums\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Enums\**" />
+    </ItemGroup>
+
+</Project>
