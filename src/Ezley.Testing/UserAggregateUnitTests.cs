@@ -37,7 +37,29 @@ namespace Ezley.Testing
         [Fact]
         public async Task ChangeDisplayName()
         {
+            Aes aes = Aes.Create();
+            Guid id = Guid.NewGuid();
+            AesKeyInfo ki = new AesKeyInfo(id.ToString(), aes.Key, aes.IV);
+            var user = CreateUserHelper(id, ki);
+
+            var eventUserInfo = GetAnonymousUser();
+            var repo = RepositoryHelper.GetRepository();
+            var saved = await repo.Save(eventUserInfo, user);
+
+            var agg1 = await repo.Load<User>(id);
+            var newDisplayName = new DisplayName("Fred");
+            agg1.ChangeDisplayName(ki, newDisplayName);
+            await repo.Save(eventUserInfo, agg1);
+
+            var agg = await repo.Load<User>(id);
           
+            Assert.Equal(id.ToString(), agg.Id);
+            Assert.Equal(user.EncPersonName,agg.EncPersonName);
+            Assert.Equal(user.EncDisplayName, agg.EncDisplayName);
+            Assert.Equal(user.EncAddress, agg.EncAddress);
+            Assert.Equal(user.EncPhone, agg.EncPhone);
+            Assert.Equal(user.EncEmail, agg.EncEmail);
+            Assert.Equal(user.Active, agg.Active);
         }
 
         private User CreateUserHelper(Guid userId, AesKeyInfo keyInfo)

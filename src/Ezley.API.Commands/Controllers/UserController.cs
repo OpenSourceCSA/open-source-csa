@@ -61,7 +61,7 @@ namespace Ezley.API.Commands.Controllers
             // Create ServiceProvider
             // Create Auth0 User
             /*******************************************************/
-            var userInfo = GetUserInfo();
+            var userInfo = GetUserInfo(true);
             var appUserId = (Guid)registerUserModel.Id;
             var consumerId = Guid.NewGuid();
             

@@ -34,3 +34,4 @@ Desktop.ini
 .DS_Store
 
 **/*/appsettings.Local.json
+**/*/TestConfig-Marc.cs
