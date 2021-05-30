@@ -38,7 +38,15 @@ namespace Ezley.Projections
 
         private byte[] GetKey(string id)
         {
-            return _respository.LoadKeyAsync(id).GetAwaiter().GetResult();
+            try
+            {
+                return _respository.LoadKeyAsync(id).GetAwaiter().GetResult();
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+           
         }
 
         private void OnRegistered(UserRegistered e, UserView view)

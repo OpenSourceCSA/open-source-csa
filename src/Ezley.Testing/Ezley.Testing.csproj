@@ -24,11 +24,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Remove="_RunProjectionEngine.cs" />
-      <Resource Include="_RunProjectionEngine.cs" />
-    </ItemGroup>
-
-    <ItemGroup>
       <None Remove="js\spAppendToStream.js" />
       <Content Include="js\spAppendToStream.js" />
     </ItemGroup>

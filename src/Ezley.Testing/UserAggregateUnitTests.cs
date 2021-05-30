@@ -22,7 +22,7 @@ namespace Ezley.Testing
             var eventUserInfo = GetAnonymousUser();
             var repo = RepositoryHelper.GetRepository();
             var saved = await repo.Save(eventUserInfo, user);
-
+            bool savedKey = await repo.SaveKeyInfo(ki);
             var agg = await repo.Load<User>(id);
           
             Assert.Equal(id.ToString(), agg.Id);
