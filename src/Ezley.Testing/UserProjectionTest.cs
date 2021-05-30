@@ -54,7 +54,7 @@ namespace Ezley.Testing
             Assert.Equal(user.address, projection.Address);
             Assert.Equal(user.email, projection.Email);
             Assert.Equal(user.phone, projection.Phone);
-            // Assert.Equal(user.auth0Id, projection.Auth0Id);
+            Assert.Equal(user.auth0Id, projection.Auth0Id);
             Assert.Equal(user.displayName, projection.DisplayName);
             Assert.Equal(user.personName, projection.PersonName);
         }
