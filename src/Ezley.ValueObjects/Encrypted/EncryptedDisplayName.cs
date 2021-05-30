@@ -5,8 +5,6 @@ namespace Ezley.ValueObjects.Encrypted
 {
     public class EncryptedDisplayName : IEquatable<EncryptedDisplayName>
     {
-        public string Value { get; set; }
-
         public bool Equals(EncryptedDisplayName other)
         {
             if (ReferenceEquals(null, other)) return false;
@@ -27,6 +25,19 @@ namespace Ezley.ValueObjects.Encrypted
             return (Value != null ? Value.GetHashCode() : 0);
         }
 
+        public static bool operator ==(EncryptedDisplayName left, EncryptedDisplayName right)
+        {
+            return Equals(left, right);
+        }
+
+        public static bool operator !=(EncryptedDisplayName left, EncryptedDisplayName right)
+        {
+            return !Equals(left, right);
+        }
+
+        public string Value { get; set; }
+
+        
         public EncryptedDisplayName(bool inputEncrypted, byte[] key, byte[] iv, string value)
         {
             Init(inputEncrypted, key, iv, value);

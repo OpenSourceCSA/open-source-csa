@@ -129,6 +129,7 @@ namespace Ezley.ProjectionStore
                             // a LSN per lease in the view. This is not yet possible in the V3 SDK.
                             if (view.IsNewerThanCheckpoint(change))
                             {
+                                
                                 projection.Apply(@event, view);
 
                                 view.UpdateCheckpoint(change);

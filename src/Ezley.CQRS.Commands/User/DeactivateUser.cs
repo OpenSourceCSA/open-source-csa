@@ -42,7 +42,7 @@ namespace Ezley.Commands
             if (command.EventUserInfo == null)
                 throw new ApplicationException("User must be defined.");
 
-            var user = await _repository.Load<User>(command.Id);
+            var user = await _repository.Load<User>(command.Id.ToString());
             user.Deactivate();
             await _repository.Save(command.EventUserInfo, user);
             return Unit.Value;

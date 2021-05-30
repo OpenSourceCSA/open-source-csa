@@ -12,11 +12,13 @@ namespace ES.Domain
     {
         Task<T> Load<T>(Guid id)
             where T : AggregateBase;
+        Task<T> Load<T>(string id)
+            where T : AggregateBase;
 
         Task<bool> Save<T>(EventUserInfo eventUserInfo, T aggregate)
             where T : AggregateBase;
         Task<AesKeyInfo> LoadKeyInfoAsync(string streamId); 
-        byte[] LoadKeyAsync(string streamId);
+        Task<byte[]> LoadKeyAsync(string streamId);
         Task<bool> SaveKeyInfo(AesKeyInfo key);
     }
 
@@ -31,6 +33,13 @@ namespace ES.Domain
         }
 
         public async Task<T> Load<T>(Guid id)
+            where T : AggregateBase
+        {
+            return await Load<T>(id.ToString());
+        }
+
+
+        public async Task<T> Load<T>(string id)
             where T : AggregateBase
         {
             var stream = await _eventStore.LoadStreamAsyncOrThrowNotFound(id.ToString());
@@ -69,14 +78,15 @@ namespace ES.Domain
             return key?.KeyData.ToObject<AesKeyInfo>();
         }
 
-        public byte[] LoadKeyAsync(string id)
+        public async Task<byte[]> LoadKeyAsync(string id)
         {
-            var keyData = LoadKeyInfoAsync(id).GetAwaiter().GetResult();
+            var streamId =  $"KeyInfo:{id.ToString()}";
+            var keyData = await LoadKeyInfoAsync(id);
             return keyData.Key;
         }
         public async Task<bool> SaveKeyInfo(AesKeyInfo key)
         {
-            var streamId = key.Id;
+            var streamId =  $"KeyInfo:{key.Id.ToString()}";
             await _keyStore
                 .SaveKeyAsync(streamId, key);
             return true;

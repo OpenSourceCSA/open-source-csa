@@ -5,6 +5,16 @@ namespace Ezley.ValueObjects.Encrypted
 {
     public class EncryptedPhone : IEquatable<EncryptedPhone>
     {
+        public static bool operator ==(EncryptedPhone left, EncryptedPhone right)
+        {
+            return Equals(left, right);
+        }
+
+        public static bool operator !=(EncryptedPhone left, EncryptedPhone right)
+        {
+            return !Equals(left, right);
+        }
+
         public string CountryCode { get; set; }
         public string Number { get; set; }
 

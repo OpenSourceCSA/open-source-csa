@@ -20,6 +20,16 @@ namespace Ezley.ValueObjects
 
     public class Phone : IEquatable<Phone>
     {
+        public static bool operator ==(Phone left, Phone right)
+        {
+            return Equals(left, right);
+        }
+
+        public static bool operator !=(Phone left, Phone right)
+        {
+            return !Equals(left, right);
+        }
+
         public bool Equals(Phone other)
         {
             if (ReferenceEquals(null, other)) return false;
@@ -43,18 +53,11 @@ namespace Ezley.ValueObjects
         public string CountryCode { get; }
         public string Number { get; }
 
-        public Phone(EncryptedPhone encPhone, byte[] key)
+        public static Phone Create(EncryptedPhone encPhone, byte[] key)
         {
-            if (key == null)
-            {
-                CountryCode = "0";
-                Number = "0000000";
-            }
-            else
-            {
-                CountryCode = Encryptor.DecryptFromBase64(encPhone.CountryCode, key);
-                Number = Encryptor.DecryptFromBase64(encPhone.Number, key);
-            }
+            string countryCode = (key == null) ? "0" : Encryptor.DecryptFromBase64(encPhone.CountryCode, key);
+            string number = (key == null) ? "0000000" : Encryptor.DecryptFromBase64(encPhone.Number, key);
+            return new Phone(countryCode, number);
         }
 
         public Phone(string countryCode, string number)

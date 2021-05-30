@@ -5,6 +5,24 @@ namespace Ezley.ValueObjects.Encrypted
 {
     public class EncryptedPersonName : IEquatable<EncryptedPersonName>
     {
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((EncryptedPersonName) obj);
+        }
+
+        public static bool operator ==(EncryptedPersonName left, EncryptedPersonName right)
+        {
+            return Equals(left, right);
+        }
+
+        public static bool operator !=(EncryptedPersonName left, EncryptedPersonName right)
+        {
+            return !Equals(left, right);
+        }
+
         public string FirstName { get; set; }
         public string LastName { get; set; }
 

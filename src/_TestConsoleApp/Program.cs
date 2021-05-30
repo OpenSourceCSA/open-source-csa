@@ -10,16 +10,22 @@ namespace _TestConsoleApp
     {
         static void Main(string[] args)
         {
-            var aes = Aes.Create();
-            var input = Console.ReadLine();
-            Console.WriteLine("Encrypting...");
-            var encrypted = Encryptor.EncryptToBase64(input, aes.Key, aes.IV);
-            Console.WriteLine(encrypted);
-
-            Console.WriteLine("Decrypting...");
-            var decrypted = Encryptor.DecryptFromBase64(encrypted, aes.Key);
-            Console.WriteLine(decrypted);
-            Console.Read();
+            
+            while (true)
+            {
+              
+                    var input = Console.ReadLine();
+                     var aes = Aes.Create(); 
+                     Console.WriteLine($"Encrypting...{input}");
+                    var encrypted = Encryptor.EncryptToBase64(input, aes.Key, aes.IV);
+                    Console.WriteLine(encrypted);
+        
+                    Console.WriteLine("Decrypting...");
+                    var decrypted = Encryptor.DecryptFromBase64(encrypted, aes.Key);
+                    Console.WriteLine(decrypted);
+                    Console.Read();
+            }
+         
         }
 
         public static class Encryptor

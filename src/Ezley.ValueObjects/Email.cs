@@ -6,6 +6,16 @@ namespace Ezley.ValueObjects
 {
     public class Email : IEquatable<Email>
     {
+        public static bool operator ==(Email left, Email right)
+        {
+            return Equals(left, right);
+        }
+
+        public static bool operator !=(Email left, Email right)
+        {
+            return !Equals(left, right);
+        }
+
         public bool Equals(Email other)
         {
             if (ReferenceEquals(null, other)) return false;
@@ -28,17 +38,11 @@ namespace Ezley.ValueObjects
 
         public string Address { get; }
 
-        public Email(EncryptedEmail encEmail, byte[] key)
+        public static Email Create(EncryptedEmail encEmail, byte[] key)
         {
             var noKey = "NoKey";
-            if (key == null)
-            {
-                Address = $"{noKey} Address";
-            }
-            else
-            {
-                Address = Encryptor.DecryptFromBase64(encEmail.Address, key);
-            }
+             string address = (key == null) ? $"{noKey} Address" : Encryptor.DecryptFromBase64(encEmail.Address, key);;
+             return new Email(address);
         }
 
         public Email(string address)

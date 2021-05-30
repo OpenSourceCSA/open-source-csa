@@ -58,26 +58,26 @@ namespace Ezley.Commands
             RegisterUser command,
             CancellationToken cancellationToken)
         {
-            // Domain BRs
-            if (command.EventUserInfo == null)
-                throw new ApplicationException("User must be defined.");
-
+            command.EventUserInfo.VerifyIsAnonymous_ThrowsException();
+            
             Aes myAes = Aes.Create();
             AesKeyInfo aesInfo = new AesKeyInfo(
                 command.Id.ToString(),
                 myAes.Key,
                 myAes.IV);
-             await _repository.SaveKeyInfo(aesInfo);
-             
+            await _repository.SaveKeyInfo(aesInfo);
+
             var user = new User(
                 aesInfo,
                 command.Id,
+                command.Auth0Id,
                 command.PersonName,
                 command.DisplayName,
                 command.Address,
                 command.Phone,
                 command.Email,
-                true);
+                command.Active);
+
             await _repository.Save(command.EventUserInfo, user);
 
             return Unit.Value;

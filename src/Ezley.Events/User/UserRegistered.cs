@@ -9,6 +9,7 @@ namespace Ezley.Events
     public class UserRegistered: EventBase
     {
         public Guid Id { get; private set; }
+        public string Auth0Id { get; private set; }
         public EncryptedPersonName EncPersonName { get; private set; }
         public EncryptedDisplayName EncDisplayName { get; private set; }
         public EncryptedAddress EncAddress { get; private set; }
@@ -19,6 +20,7 @@ namespace Ezley.Events
          
         public UserRegistered(
             Guid id, 
+            string auth0Id,
             EncryptedPersonName encPersonName, 
             EncryptedDisplayName encDisplayName,
             EncryptedAddress encAddress, 
@@ -27,6 +29,7 @@ namespace Ezley.Events
             bool active)
         {
             Id = id;
+            Auth0Id = auth0Id;
             EncPersonName = encPersonName;
             EncDisplayName = encDisplayName;
             EncAddress = encAddress;

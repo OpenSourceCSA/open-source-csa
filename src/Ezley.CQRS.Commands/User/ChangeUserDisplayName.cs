@@ -37,9 +37,8 @@ namespace Ezley.Commands
             ChangeUserDisplayName command,
             CancellationToken cancellationToken)
         {
-            if (command.EventUserInfo == null)
-                throw new ApplicationException("User must be defined.");
-
+            command.EventUserInfo.VerifyIsToken_ThrowsException();
+            
             var user = await _repository.Load<User>(command.Id);
             var keyInfo = await _repository.LoadKeyInfoAsync(user.Id);
             user.ChangeDisplayName(keyInfo, command.DisplayName);

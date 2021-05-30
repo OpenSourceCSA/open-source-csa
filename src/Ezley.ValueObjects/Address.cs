@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using ApplicationServices.AesEncryption;
 using Ezley.ValueObjects.Encrypted;
 
@@ -6,6 +7,16 @@ namespace Ezley.ValueObjects
 {
     public class Address : IEquatable<Address>
     {
+        public static bool operator ==(Address left, Address right)
+        {
+            return Equals(left, right);
+        }
+
+        public static bool operator !=(Address left, Address right)
+        {
+            return !Equals(left, right);
+        }
+
         public bool Equals(Address other)
         {
             if (ReferenceEquals(null, other)) return false;
@@ -35,29 +46,21 @@ namespace Ezley.ValueObjects
         public string State { get; }
         public string Country { get; }
 
-        public Address(EncryptedAddress encAddress, byte[] key)
+        public static Address Create(EncryptedAddress encAddress, byte[] key)
         {
             var none = "NoKey";
-            if (key == null)
-            {
-                Line1 = $"{none} Line1";
-                Line2 = $"{none} Line2";
-                Line3 = $"{none} Line3";
-                City = $"{none} City";
-                PostalCode = $"{none} PostalCode";
-                State = $"{none} State";
-                Country = $"{none} Country";
-            }
-            else
-            {
-                Line1 = Encryptor.DecryptFromBase64(encAddress.Line1, key);
-                Line2 = Encryptor.DecryptFromBase64(encAddress.Line2, key);
-                Line3 = Encryptor.DecryptFromBase64(encAddress.Line3, key);
-                City = Encryptor.DecryptFromBase64(encAddress.City, key);
-                PostalCode = Encryptor.DecryptFromBase64(encAddress.PostalCode, key);
-                State = Encryptor.DecryptFromBase64(encAddress.State, key);
-                Country = Encryptor.DecryptFromBase64(encAddress.Country, key);
-            }
+
+            string line1 = (key == null) ? $"{none} Line1" : Encryptor.DecryptFromBase64(encAddress.Line1, key);
+            string line2 = (key == null) ? $"{none} Line2" : Encryptor.DecryptFromBase64(encAddress.Line2, key);
+            string line3 = (key == null) ? $"{none} Line3" : Encryptor.DecryptFromBase64(encAddress.Line3, key);
+            string city = (key == null) ? $"{none} City" : Encryptor.DecryptFromBase64(encAddress.City, key);
+            string postalCode = (key == null)
+                ? $"{none} PostalCode"
+                : Encryptor.DecryptFromBase64(encAddress.PostalCode, key);
+            string state = (key == null) ? $"{none} State" : Encryptor.DecryptFromBase64(encAddress.State, key);
+            string country = (key == null) ? $"{none} Country" : Encryptor.DecryptFromBase64(encAddress.Country, key);
+
+            return new Address(line1, line2, line3, city, postalCode, state, country);
         }
 
         public Address(

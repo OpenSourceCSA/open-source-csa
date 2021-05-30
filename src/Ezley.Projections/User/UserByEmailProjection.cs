@@ -37,20 +37,20 @@ namespace Ezley.Projections
         private string GetEmailAddress(UserRegistered @event)
         {
             var key = GetKey(@event.Id);
-            var emailAddress = new Email(@event.EncEmail, key);
+            var emailAddress = Email.Create(@event.EncEmail, key);
             return emailAddress.Address;
         }
 
         private string GetEmailAddress(UserEmailChanged @event)
         {
             var key = GetKey(@event.Id);
-            var emailAddress = new Email(@event.EncEmail, key);
+            var emailAddress = Email.Create(@event.EncEmail, key);
             return emailAddress.Address;
         }
 
         private byte[] GetKey(Guid id)
         {
-            return _respository.LoadKeyAsync(id.ToString());
+            return _respository.LoadKeyAsync(id.ToString()).GetAwaiter().GetResult();
         }
 
         #region EventHandlers

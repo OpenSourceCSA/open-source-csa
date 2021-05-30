@@ -6,20 +6,17 @@ namespace Ezley.ValueObjects.Encrypted
 {
     public class EncryptedAddress : IEquatable<EncryptedAddress>
     {
-        public string Line1 { get; set; } = string.Empty;
-        public string Line2 { get; set; } = string.Empty;
-        public string Line3 { get; set; } = string.Empty;
-        public string City { get; set; } = string.Empty;
-        public string PostalCode { get; set; } = string.Empty;
-        public string State { get; set; } = string.Empty;
-        public string Country { get; set; } = string.Empty;
-
         public bool Equals(EncryptedAddress? other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return Line1 == other.Line1 && Line2 == other.Line2 && Line3 == other.Line3 && City == other.City &&
-                   PostalCode == other.PostalCode && State == other.State && Country == other.Country;
+            return Line1 == other.Line1 
+                   && Line2 == other.Line2 
+                   && Line3 == other.Line3 
+                   && City == other.City 
+                   && PostalCode == other.PostalCode 
+                   && State == other.State 
+                   && Country == other.Country;
         }
 
         public override bool Equals(object? obj)
@@ -34,6 +31,25 @@ namespace Ezley.ValueObjects.Encrypted
         {
             return HashCode.Combine(Line1, Line2, Line3, City, PostalCode, State, Country);
         }
+
+        public static bool operator ==(EncryptedAddress? left, EncryptedAddress? right)
+        {
+            return Equals(left, right);
+        }
+
+        public static bool operator !=(EncryptedAddress? left, EncryptedAddress? right)
+        {
+            return !Equals(left, right);
+        }
+
+        public string Line1 { get; set; } = string.Empty;
+        public string Line2 { get; set; } = string.Empty;
+        public string Line3 { get; set; } = string.Empty;
+        public string City { get; set; } = string.Empty;
+        public string PostalCode { get; set; } = string.Empty;
+        public string State { get; set; } = string.Empty;
+        public string Country { get; set; } = string.Empty;
+        
 
         public EncryptedAddress()
         {

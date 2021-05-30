@@ -1,7 +1,7 @@
 using System;
 using Ezley.EventSourcing;
 
-namespace Ezley.Events.Auth0User
+namespace Ezley.Events
 {
     public class Auth0UserRegistered:EventBase
     {

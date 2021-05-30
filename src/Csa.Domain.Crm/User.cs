@@ -21,11 +21,12 @@ namespace Ezley.Domain.CRM
         public User(IEnumerable<IEvent> events): base(events)
         {
         }
-        public User(AesKeyInfo keyInfo, Guid id, PersonName personName, DisplayName displayName,
+        public User(AesKeyInfo keyInfo, Guid id, string auth0Id, PersonName personName, DisplayName displayName,
             Address address, Phone phone, Email email, bool active = true)
         {
             Apply( new UserRegistered(
                 id, 
+                auth0Id,
                 new EncryptedPersonName(personName, keyInfo.Key, keyInfo.IV),
                 new EncryptedDisplayName (displayName, keyInfo.Key, keyInfo.IV),
                 new EncryptedAddress(address, keyInfo.Key, keyInfo.IV),

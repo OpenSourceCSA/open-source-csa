@@ -66,6 +66,7 @@ namespace Ezley.Commands
             _repository = repository;
         }
         
+
         public async Task<Unit> Handle(
             AddConsumer command,
             CancellationToken cancellationToken)
@@ -86,7 +87,7 @@ namespace Ezley.Commands
              
             return Unit.Value;
         }
-
+#pragma warning disable 1998
   
     }
 }

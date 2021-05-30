@@ -9,10 +9,10 @@ namespace Ezley.Events
         public Guid Id { get; private set; }
         public EncryptedDisplayName EncDisplayName { get; private set; }
 
-        public UserDisplayNameChanged(Guid id, EncryptedDisplayName encryptedDisplayName)
+        public UserDisplayNameChanged(Guid id, EncryptedDisplayName encDisplayName)
         {
             Id = id;
-            EncDisplayName = encryptedDisplayName;
+            EncDisplayName = encDisplayName;
         }
     }
 }
